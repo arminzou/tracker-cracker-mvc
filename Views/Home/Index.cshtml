@@ -1,0 +1,395 @@
+﻿@model CapTrackerCracker.Models.PasswordOptions
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="header">
+    <div>
+        <img class="logo" src="~/Content/src/img/captorra-integration.png" border="0" />
+        <h1>Captorra Tracker Cracker</h1>
+    </div>
+</div>
+<hr />
+
+<div id="pw-gen-section">
+    <div class="row">
+        <div class="col align-self-start">
+            <strong>Password Generator</strong>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                @Html.LabelFor(m => m.RequiredLength)
+            </div>
+            <div class="col-8">
+                @{
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "8",
+                        Value = "8",
+                        Selected = true
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "16",
+                        Value = "16"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "32",
+                        Value = "32"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "48",
+                        Value = "48"
+                    });
+                }
+                @Html.DropDownListFor(model => Model.RequiredLength, listItems, new { @class = "form-control", style = "width: 250px;" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                @Html.LabelFor(m => m.IncludeDigit)
+            </div>
+            <div class="col-8">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.IncludeDigit, new { onchange = "includeNumbersOption(this)" }) (e.g. 1234567890)
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                @Html.LabelFor(m => m.IncludeLowercase)
+            </div>
+            <div class="col-8">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.IncludeLowercase, new { onchange = "includeLowercaseCharOption(this)" }) (e.g. abcdefgh)
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                @Html.LabelFor(m => m.IncludeUppercase)
+            </div>
+            <div class="col-8">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.IncludeUppercase, new { onchange = "includeUppercaseCharOption(this)" }) (e.g. ABCDEFGH)
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                @Html.LabelFor(m => m.IncludeSymbols)
+            </div>
+            <div class="col-8">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.IncludeSymbols, new { onchange = "includeSymbolsOption(this)" }) (e.g. !@@$?_-)
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                @Html.LabelFor(m => m.NoSimilarCharacters)
+            </div>
+            <div class="col-8">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.NoSimilarCharacters, new { onchange = "similarCharactersOption(this)" }) (Don't use characters like i, l, 1, L, o, 0, O)
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                @Html.LabelFor(m => m.Quality)
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(m => m.Quality, new List<SelectListItem>
+                {
+                   new SelectListItem() {Text = "1", Value="1"},
+                   new SelectListItem() {Text = "2", Value="2"},
+                   new SelectListItem() {Text = "3", Value="3"},
+                   new SelectListItem() {Text = "4", Value="4"},
+                   new SelectListItem() {Text = "5", Value="5"},
+                   new SelectListItem() {Text = "6", Value="6"},
+                   new SelectListItem() {Text = "7", Value="7"},
+                   new SelectListItem() {Text = "8", Value="8"},
+                   new SelectListItem() {Text = "9", Value="9"},
+                   new SelectListItem() {Text = "10", Value="10"},
+                }, new { @class = "form-control", style = "width: 250px;" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-8">
+                <input type="button" class="btn btn-primary pw-gen-btn" value="Generate Passwords" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                Passwords:
+            </div>
+            <div class="col-8">
+                @Html.TextArea("PasswordArea", null, new { @class = "form-control", @cols = 40, @rows = 10, @style = "max-width: 95% !important;" })
+                <input type="button" class="btn btn-primary mybtn pw-copy-btn" value="Copy" Style="margin-top: 5px" />
+                <input type="button" class="btn btn-primary mybtn pw-clear-btn" value="Clear" Style="margin: 5px 0 0 5px" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="pw-bese64-section">
+    <div class="row">
+        <div class="col align-self-start">
+            <strong>Base64 Encoder/Decoder</strong>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                Input String:
+            </div>
+            <div class="col-8">
+                @Html.TextArea("input", null, new { @class = "form-control", @cols = 40, @rows = 10, @style = "max-width: 95% !important;" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-8">
+                <input type="button" class="btn btn-primary mybtn pw-encode-btn" value="Encrypt" Style="margin-top: 5px" />
+                <input type="button" class="btn btn-primary mybtn pw-decode-btn" value="Decrypt" Style="margin: 5px 0 0 5px" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col txt-label">
+                Result:
+            </div>
+            <div class="col-8">
+                @Html.TextArea("result", null, new { @class = "form-control", @cols = 40, @rows = 10, @style = "max-width: 95% !important;" })
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col input-tag">
+            </div>
+            <div class="col-8">
+                <input type="button" class="btn btn-primary mybtn result-copy-btn" value="Copy" Style="margin-top: 5px" />
+                <input type="button" class="btn btn-primary mybtn reset-all-btn" value="Reset" Style="margin: 5px 0 0 5px" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            // Password Generator Button
+            $("#pw-gen-section .pw-gen-btn").on("click", function () {
+                var pwOpts =
+                {
+                    RequiredLength: $("#pw-gen-section #RequiredLength option:selected").text(),
+                    IncludeDigit: $("#pw-gen-section #IncludeDigit").val(),
+                    IncludeLowercase: $("#pw-gen-section #IncludeLowercase").val(),
+                    IncludeUppercase: $("#pw-gen-section #IncludeUppercase").val(),
+                    IncludeSymbols: $("#pw-gen-section #IncludeSymbols").val(),
+                    NoSimilarCharacters: $("#pw-gen-section #NoSimilarCharacters").val()
+                };
+
+                var pw = getPasswordlist(pwOpts);
+                $("#pw-gen-section #PasswordArea").val(pw);
+            });
+
+            // Password Copy Button
+            $("#pw-gen-section .pw-copy-btn").on("click", function () {
+                $("#pw-gen-section #PasswordArea").select();
+                document.execCommand("copy");
+            });
+
+            // Password Clear Button
+            $("#pw-gen-section .pw-clear-btn").on("click", function () {
+                $("#pw-gen-section #PasswordArea").val('');
+            });
+
+            // Base64 Encode Button
+            $("#pw-bese64-section .pw-encode-btn").on("click", function () {
+                $("#pw-bese64-section #result").val("");
+                var temp = "";
+                var pwElements = $("#pw-bese64-section #input").val().split("\n");
+                pwElements.forEach((element, index, array) => {
+                    var encodedData = window.btoa(element);
+                    if (index === (array.length - 1)) {
+                        temp += encodedData;
+                    } else {
+                        temp += encodedData + "\n";
+                    }
+                });
+                $("#pw-bese64-section #result").val(temp);
+            });
+
+            // Base64 Decode Button
+            $("#pw-bese64-section .pw-decode-btn").on("click", function () {
+                $("#pw-bese64-section #result").val("");
+                var temp = "";
+                var pwElements = $("#pw-bese64-section #input").val().split("\n");
+                pwElements.forEach((element, index, array) => {
+                    var decodedData = window.atob(element);
+                    if (index === (array.length - 1)) {
+                        temp += decodedData;
+                    } else {
+                        temp += decodedData + "\n";
+                    }
+                });
+                $("#pw-bese64-section #result").val(temp);
+            });
+
+            // Result Copy Button
+            $("#pw-bese64-section .result-copy-btn").on("click", function () {
+                $("#pw-bese64-section #result").select()
+                document.execCommand("copy");
+            });
+
+            // Reset Button
+            $("#pw-bese64-section .reset-all-btn").on("click", function () {
+                $("#pw-gen-section #PasswordArea").val('');
+                $("#pw-bese64-section #input").val('');
+                $("#pw-bese64-section #result").val('');
+            });
+        });
+
+        function getPasswordlist(pwOpts) {
+            var passwords = "";
+
+            
+            var passwordList = generateRandomPassword(pwOpts);
+            passwordList.forEach(function (pw) {
+                passwords += pw + "\n";
+            });
+
+            return passwords;
+        }
+
+        function generateRandomPassword(opts) {
+            var passwordList = [];
+            var numOfPwNeeded = $("#pw-gen-section #Quality option:selected").text();
+
+            for (var j = 0; j < numOfPwNeeded; j++) {
+                var chars = [];
+                var randomChars = [];
+
+                if (opts == null) {
+                    opts = {
+                        RequiredLength: 8,
+                        IncludeDigit: true,
+                        IncludeLowercase: true,
+                        IncludeUppercase: true,
+                        IncludeSymbols: true,
+                        NoSimilarCharacters: true
+                    };
+                }
+
+                if (opts.IncludeDigit == "true") {
+                    randomChars.push("0123456789");
+                }
+                    
+                if (opts.IncludeLowercase == "true") {
+                    randomChars.push("abcdefghijkmnopqrstuvwxyz");
+                }
+                    
+                if (opts.IncludeUppercase == "true") {
+                    randomChars.push("ABCDEFGHJKLMNOPQRSTUVWXYZ");
+                }
+                    
+                if (opts.IncludeSymbols == "true") {
+                    randomChars.push("~!@@#$%^&*()-+=?/<>|[]{}_:;.,\\`.");
+                }
+
+                if (opts.NoSimilarCharacters == "true") {
+                    randomChars.forEach(function (e) {
+                        e.replace(/[01ioLO|]/g, '');
+                    })
+                }
+
+                // for each required character, choose one of the option strings showed above randomly
+                // insert a random character from the option string into a new array at random position
+                for (var i = chars.length; i < opts.RequiredLength; i++) {
+                    var randomString = randomChars[randomInt(randomChars.length)];
+                    chars.splice(randomInt(chars.length), 0, randomString[randomInt(randomString.length)]);
+                }
+                passwordList.push(chars.join(""));
+            };
+
+            return passwordList;
+        }
+
+        function randomInt(length) {
+            return Math.floor(Math.random() * length);
+        }
+
+        function includeNumbersOption(element) {
+            element.checked ? $("#pw-gen-section #IncludeDigit").val(true) : $("#pw-gen-section #IncludeDigit").val(false);
+        }
+
+        function includeLowercaseCharOption(element) {
+            element.checked ? $("#pw-gen-section #IncludeLowercase").val(true) : $("#pw-gen-section #IncludeLowercase").val(false);
+        }
+
+        function includeUppercaseCharOption(element) {
+            element.checked ? $("#pw-gen-section #IncludeUppercase").val(true) : $("#pw-gen-section #IncludeUppercase").val(false);
+        }
+
+        function includeSymbolsOption(element) {
+            element.checked ? $("#pw-gen-section #IncludeSymbols").val(true) : $("#pw-gen-section #IncludeSymbols").val(false);
+        }
+
+        function similarCharactersOption(element) {
+            element.checked ? $("#pw-gen-section #NoSimilarCharacters").val(true) : $("#pw-gen-section #NoSimilarCharacters").val(false);
+        }
+    </script>
+}
+
+

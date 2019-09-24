@@ -1,0 +1,33 @@
+﻿
+.header {
+    overflow: auto;
+    margin-left: 25%;
+}
+
+    .header img {
+        width: 100px;
+        height: auto;
+        float: left;
+    }
+
+    .header h1 {
+        float: left;
+        margin-top: 55px;
+    }
+
+.row {
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.txt-label {
+    text-align: right;
+}
+
+.mybtn {
+    width: 5em
+}
+
+.bg-error {
+    color: Red;
+}
