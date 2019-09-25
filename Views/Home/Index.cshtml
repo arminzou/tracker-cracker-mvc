@@ -2,223 +2,226 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-<div class="header">
-    <div>
-        <img class="logo" src="~/Content/src/img/captorra-integration.png" border="0" />
-        <h1>Captorra Tracker Cracker</h1>
-    </div>
-</div>
-<hr />
-
-<div id="pw-gen-section">
-    <div class="row">
-        <div class="col align-self-start">
-            <strong>Password Generator</strong>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                @Html.LabelFor(m => m.RequiredLength)
-            </div>
-            <div class="col-8">
-                @{
-                    List<SelectListItem> listItems = new List<SelectListItem>();
-                    listItems.Add(new SelectListItem
-                    {
-                        Text = "8",
-                        Value = "8",
-                        Selected = true
-                    });
-                    listItems.Add(new SelectListItem
-                    {
-                        Text = "16",
-                        Value = "16"
-                    });
-                    listItems.Add(new SelectListItem
-                    {
-                        Text = "32",
-                        Value = "32"
-                    });
-                    listItems.Add(new SelectListItem
-                    {
-                        Text = "48",
-                        Value = "48"
-                    });
-                }
-                @Html.DropDownListFor(model => Model.RequiredLength, listItems, new { @class = "form-control", style = "width: 250px;" })
+<div class="bd-content">
+    <div class="bd">
+        <div class="header">
+            <div>
+                <img class="logo" src="~/Content/src/img/captorra-integration.png" border="0" />
+                <h1>Captorra Tracker Cracker</h1>
             </div>
         </div>
-    </div>
+        <hr />
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                @Html.LabelFor(m => m.IncludeDigit)
+        <div id="pw-gen-section">
+            <div class="row">
+                <div class="col align-self-start">
+                    <strong>Password Generator</strong>
+                </div>
             </div>
-            <div class="col-8">
-                <div class="checkbox">
-                    <label>
-                        @Html.CheckBoxFor(m => m.IncludeDigit, new { onchange = "includeNumbersOption(this)" }) (e.g. 1234567890)
-                    </label>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        @Html.LabelFor(m => m.RequiredLength)
+                    </div>
+                    <div class="col-8">
+                        @{
+                            List<SelectListItem> listItems = new List<SelectListItem>();
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "8",
+                                Value = "8",
+                                Selected = true
+                            });
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "16",
+                                Value = "16"
+                            });
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "32",
+                                Value = "32"
+                            });
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "48",
+                                Value = "48"
+                            });
+                        }
+                        @Html.DropDownListFor(model => Model.RequiredLength, listItems, new { @class = "form-control", style = "width: 250px;" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        @Html.LabelFor(m => m.IncludeDigit)
+                    </div>
+                    <div class="col-8">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.IncludeDigit, new { onchange = "includeNumbersOption(this)" }) (e.g. 1234567890)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        @Html.LabelFor(m => m.IncludeLowercase)
+                    </div>
+                    <div class="col-8">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.IncludeLowercase, new { onchange = "includeLowercaseCharOption(this)" }) (e.g. abcdefgh)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        @Html.LabelFor(m => m.IncludeUppercase)
+                    </div>
+                    <div class="col-8">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.IncludeUppercase, new { onchange = "includeUppercaseCharOption(this)" }) (e.g. ABCDEFGH)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        @Html.LabelFor(m => m.IncludeSymbols)
+                    </div>
+                    <div class="col-8">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.IncludeSymbols, new { onchange = "includeSymbolsOption(this)" }) (e.g. !@@$?_-)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        @Html.LabelFor(m => m.NoSimilarCharacters)
+                    </div>
+                    <div class="col-8">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.NoSimilarCharacters, new { onchange = "similarCharactersOption(this)" }) (Don't use characters like i, l, 1, L, o, 0, O)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        @Html.LabelFor(m => m.Quality)
+                    </div>
+                    <div class="col-8">
+                        @Html.DropDownListFor(m => m.Quality, new List<SelectListItem>
+                        {
+                           new SelectListItem() {Text = "1", Value="1"},
+                           new SelectListItem() {Text = "2", Value="2"},
+                           new SelectListItem() {Text = "3", Value="3"},
+                           new SelectListItem() {Text = "4", Value="4"},
+                           new SelectListItem() {Text = "5", Value="5"},
+                           new SelectListItem() {Text = "6", Value="6"},
+                           new SelectListItem() {Text = "7", Value="7"},
+                           new SelectListItem() {Text = "8", Value="8"},
+                           new SelectListItem() {Text = "9", Value="9"},
+                           new SelectListItem() {Text = "10", Value="10"},
+                        }, new { @class = "form-control", style = "width: 250px;" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col-8">
+                        <input type="button" class="btn btn-primary pw-gen-btn" value="Generate Passwords" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        Passwords:
+                    </div>
+                    <div class="col-8">
+                        @Html.TextArea("PasswordArea", null, new { @class = "form-control", @cols = 40, @rows = 10, @style = "max-width: 95% !important;" })
+                        <input type="button" class="btn btn-primary mybtn pw-copy-btn" value="Copy" Style="margin-top: 5px" />
+                        <input type="button" class="btn btn-primary mybtn pw-clear-btn" value="Clear" Style="margin: 5px 0 0 5px" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                @Html.LabelFor(m => m.IncludeLowercase)
-            </div>
-            <div class="col-8">
-                <div class="checkbox">
-                    <label>
-                        @Html.CheckBoxFor(m => m.IncludeLowercase, new { onchange = "includeLowercaseCharOption(this)" }) (e.g. abcdefgh)
-                    </label>
+        <div id="pw-bese64-section">
+            <div class="row">
+                <div class="col align-self-start">
+                    <strong>Base64 Encoder/Decoder</strong>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                @Html.LabelFor(m => m.IncludeUppercase)
-            </div>
-            <div class="col-8">
-                <div class="checkbox">
-                    <label>
-                        @Html.CheckBoxFor(m => m.IncludeUppercase, new { onchange = "includeUppercaseCharOption(this)" }) (e.g. ABCDEFGH)
-                    </label>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        Input String:
+                    </div>
+                    <div class="col-8">
+                        @Html.TextArea("input", null, new { @class = "form-control", @cols = 40, @rows = 10, @style = "max-width: 95% !important;" })
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                @Html.LabelFor(m => m.IncludeSymbols)
-            </div>
-            <div class="col-8">
-                <div class="checkbox">
-                    <label>
-                        @Html.CheckBoxFor(m => m.IncludeSymbols, new { onchange = "includeSymbolsOption(this)" }) (e.g. !@@$?_-)
-                    </label>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col-8">
+                        <input type="button" class="btn btn-primary mybtn pw-encode-btn" value="Encrypt" Style="margin-top: 5px" />
+                        <input type="button" class="btn btn-primary mybtn pw-decode-btn" value="Decrypt" Style="margin: 5px 0 0 5px" />
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                @Html.LabelFor(m => m.NoSimilarCharacters)
-            </div>
-            <div class="col-8">
-                <div class="checkbox">
-                    <label>
-                        @Html.CheckBoxFor(m => m.NoSimilarCharacters, new { onchange = "similarCharactersOption(this)" }) (Don't use characters like i, l, 1, L, o, 0, O)
-                    </label>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col txt-label">
+                        Result:
+                    </div>
+                    <div class="col-8">
+                        @Html.TextArea("result", null, new { @class = "form-control", @cols = 40, @rows = 10, @style = "max-width: 95% !important;" })
+
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                @Html.LabelFor(m => m.Quality)
-            </div>
-            <div class="col-8">
-                @Html.DropDownListFor(m => m.Quality, new List<SelectListItem>
-                {
-                   new SelectListItem() {Text = "1", Value="1"},
-                   new SelectListItem() {Text = "2", Value="2"},
-                   new SelectListItem() {Text = "3", Value="3"},
-                   new SelectListItem() {Text = "4", Value="4"},
-                   new SelectListItem() {Text = "5", Value="5"},
-                   new SelectListItem() {Text = "6", Value="6"},
-                   new SelectListItem() {Text = "7", Value="7"},
-                   new SelectListItem() {Text = "8", Value="8"},
-                   new SelectListItem() {Text = "9", Value="9"},
-                   new SelectListItem() {Text = "10", Value="10"},
-                }, new { @class = "form-control", style = "width: 250px;" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col">
-            </div>
-            <div class="col-8">
-                <input type="button" class="btn btn-primary pw-gen-btn" value="Generate Passwords" />
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                Passwords:
-            </div>
-            <div class="col-8">
-                @Html.TextArea("PasswordArea", null, new { @class = "form-control", @cols = 40, @rows = 10, @style = "max-width: 95% !important;" })
-                <input type="button" class="btn btn-primary mybtn pw-copy-btn" value="Copy" Style="margin-top: 5px" />
-                <input type="button" class="btn btn-primary mybtn pw-clear-btn" value="Clear" Style="margin: 5px 0 0 5px" />
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="pw-bese64-section">
-    <div class="row">
-        <div class="col align-self-start">
-            <strong>Base64 Encoder/Decoder</strong>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                Input String:
-            </div>
-            <div class="col-8">
-                @Html.TextArea("input", null, new { @class = "form-control", @cols = 40, @rows = 10, @style = "max-width: 95% !important;" })
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col">
-            </div>
-            <div class="col-8">
-                <input type="button" class="btn btn-primary mybtn pw-encode-btn" value="Encrypt" Style="margin-top: 5px" />
-                <input type="button" class="btn btn-primary mybtn pw-decode-btn" value="Decrypt" Style="margin: 5px 0 0 5px" />
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="row">
-            <div class="col txt-label">
-                Result:
-            </div>
-            <div class="col-8">
-                @Html.TextArea("result", null, new { @class = "form-control", @cols = 40, @rows = 10, @style = "max-width: 95% !important;" })
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col input-tag">
-            </div>
-            <div class="col-8">
-                <input type="button" class="btn btn-primary mybtn result-copy-btn" value="Copy" Style="margin-top: 5px" />
-                <input type="button" class="btn btn-primary mybtn reset-all-btn" value="Reset" Style="margin: 5px 0 0 5px" />
+                <div class="row">
+                    <div class="col input-tag">
+                    </div>
+                    <div class="col-8">
+                        <input type="button" class="btn btn-primary mybtn result-copy-btn" value="Copy" Style="margin-top: 5px" />
+                        <input type="button" class="btn btn-primary mybtn reset-all-btn" value="Reset" Style="margin: 5px 0 0 5px" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -304,7 +307,7 @@
         function getPasswordlist(pwOpts) {
             var passwords = "";
 
-            
+
             var passwordList = generateRandomPassword(pwOpts);
             passwordList.forEach(function (pw) {
                 passwords += pw + "\n";
@@ -335,22 +338,23 @@
                 if (opts.IncludeDigit == "true") {
                     randomChars.push("0123456789");
                 }
-                    
+
                 if (opts.IncludeLowercase == "true") {
                     randomChars.push("abcdefghijkmnopqrstuvwxyz");
                 }
-                    
+
                 if (opts.IncludeUppercase == "true") {
                     randomChars.push("ABCDEFGHJKLMNOPQRSTUVWXYZ");
                 }
-                    
+
                 if (opts.IncludeSymbols == "true") {
                     randomChars.push("~!@@#$%^&*()-+=?/<>|[]{}_:;.,\\`.");
                 }
 
                 if (opts.NoSimilarCharacters == "true") {
-                    randomChars.forEach(function (e) {
-                        e.replace(/[01ioLO|]/g, '');
+                    randomChars.forEach(function (e, index) {
+                        var tmp = e.replace(/[01ioLO|]/g, '');
+                        randomChars[index] = tmp;
                     })
                 }
 
@@ -391,5 +395,4 @@
         }
     </script>
 }
-
 

@@ -1,4 +1,13 @@
-﻿
+﻿.bd-content {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+    .bd-content .bd {
+        background-color: #eee;
+        padding: 15px;
+    }
+
 .header {
     overflow: auto;
     margin-left: 25%;
